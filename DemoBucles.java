@@ -1,17 +1,19 @@
+import java.util.Random;
 /**
- *    @author - 
+ *  @author - Aimar Casado -
  */
 public class DemoBucles
 {
     private final char ASTERISCO = '*';
     private final char ESPACIO = ' ';
-
+    private Random generador;
+    
     /**
      * Constructor  
      */
     public DemoBucles()
     {
-       
+       generador = new Random();
     }
 
     /**
@@ -26,9 +28,12 @@ public class DemoBucles
      *  Usa bucles while
      */
     public int mayorPotencia2(int numero) {
-        
-        return 0;
-
+        int potencia = 1;
+        while(potencia * 2 <= numero)
+        {
+            potencia *= 2;
+        }
+        return potencia;
     }
 
     /**
@@ -46,10 +51,18 @@ public class DemoBucles
      *  18 =    16     2
      *  64 =    64
      */
-    public void escribirSumaPotencias(int numero) {
-
-         
-
+    public void escribirSumaPotencias(int numero) 
+    {
+        int valor = numero;
+        int potencia = mayorPotencia2(valor);
+        System.out.printf("%6s",numero + " = ");
+        System.out.printf("%6d",potencia );
+        while (valor > potencia)
+        {
+            valor -= potencia;
+            potencia = mayorPotencia2(valor);
+            System.out.printf("%6d", potencia);
+        }
     }
 
     /**
@@ -63,10 +76,28 @@ public class DemoBucles
      * Utiliza bucles while
      * 
      */
-    public void generarAleatorios(int n) {
-
-       
-
+    public void generarAleatorios(int n) 
+    {
+        int i = 0;
+        int aleatorio = 1;
+        System.out.println("\nNºs aleatorios como suma de potencias de 2\n");
+        
+        while(aleatorio != 0 && i < n)
+        {
+          aleatorio = generador.nextInt(256);
+          escribirSumaPotencias(aleatorio);
+          System.out.println();
+          i++;
+        }
+          
+        if (aleatorio == 0)
+        {
+            System.out.println("\nBucle terminado porque salió el " + aleatorio);
+        }
+        else
+        {
+            System.out.println("\nBucle terminado porque se han generado ya " + i + " aleatorios");
+        }
     }
 
     /**
@@ -76,7 +107,10 @@ public class DemoBucles
      */
     public void escribirCaracter(int n, char caracter)
     {
-         
+         for(int columna = 1 ; columna <= n ; columna++)
+         {
+             System.out.print(caracter);
+         }
     }
 
     /**
@@ -86,7 +120,20 @@ public class DemoBucles
      *   Usa bucles for
      */
     public  void mostrarEscalera(int escalones, int alto, int ancho) {
-        System.out.println();
+        for (int escalon = 0 ; escalon < escalones ; escalon++)
+        {
+            for(int fila = 1 ; fila <= alto ; fila++)
+            {
+                System.out.println();
+                for(int espacios = 1 ; espacios <= (ancho * escalon) ; espacios++)
+                {
+                    System.out.print(ESPACIO);
+                }
+                escribirCaracter(ancho, ASTERISCO);
+            }
+            
+        }
+        
 
          
 
